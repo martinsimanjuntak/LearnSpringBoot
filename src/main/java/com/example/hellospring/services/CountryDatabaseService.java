@@ -20,7 +20,14 @@ public class CountryDatabaseService
         return countryRepository.findAll();
     }
     public Country getCountryById(int id){
-         return countryRepository.findById(id).get();
+        List<Country> countries = countryRepository.findAll();
+        Country country = null;
+        for (Country con : countries){
+            if (con.getId() == id){
+                country = con;
+            }
+        }
+         return country;
     }
     public Country getCountryByName(String country_name){
        List<Country> countryList=  countryRepository.findAll();

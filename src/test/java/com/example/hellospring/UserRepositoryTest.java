@@ -2,6 +2,7 @@ package com.example.hellospring;
 
 import com.example.hellospring.beans.User;
 import com.example.hellospring.repositories.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -16,7 +17,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Rollback(false)
+@Slf4j
 @SpringBootTest
 public class UserRepositoryTest {
     @Autowired
@@ -27,9 +28,10 @@ public class UserRepositoryTest {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String rawPassword = "martin123";
         String passEncoder = passwordEncoder.encode(rawPassword);
-        User newUser = new User("martin@gmail.com",passEncoder);
+        User newUser = new User("martin23@gmail.com",passEncoder);
         User savedUser = userRepository.save(newUser);
         assertThat(savedUser).isNotNull();
         assertThat(savedUser.getId()).isGreaterThan(0);
+        log.warn("Success");
     }
 }
